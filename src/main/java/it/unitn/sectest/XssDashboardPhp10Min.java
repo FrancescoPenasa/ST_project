@@ -9,7 +9,7 @@ import org.openqa.selenium.WebElement;
 
 import utils.BaseTest;
 
-public class XssDashboard10Test extends BaseTest {
+public class XssDashboardPhp10Min extends BaseTest {
 
 	@Test
 	public void testXssDashboard10Test() {
@@ -67,7 +67,7 @@ public class XssDashboard10Test extends BaseTest {
 		login("<h1>admin</h1>", "admin");
 		
 		// 5 Check the username in the dashboard
-		WebElement dashboardUsernameSpan = driver.findElement(By.xpath("/html/body/div/div[1]/div/div/div/a/span"));
+		WebElement dashboardUsernameSpan = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[2]/div[5]/div[1]/div[2]/table[1]/tbody[1]/tr[1]/td[1]"));
 		String innerHtml = dashboardUsernameSpan.getAttribute("innerHTML");
 		
 		assertEquals("<h1>admin</h1>", innerHtml);

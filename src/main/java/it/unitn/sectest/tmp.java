@@ -12,17 +12,15 @@ import utils.BrandPage;
 import utils.CategoryPage;
 import utils.DashboardPage;
 import utils.LoginPage;
-import utils.ProductPage;
 
-public class XssProduct1Min extends BaseTest{
+public class tmp extends BaseTest{
 
 	DashboardPage dashboard;
 	BrandPage brand;
 	CategoryPage categories;
-	ProductPage productPage;
 	
 	@Test
-	public void XssProduct1Min() {
+	public void tmp() {
 
 		// 1. Login as admin
 		// 2. Change brandName inserting XSS attack
@@ -34,14 +32,10 @@ public class XssProduct1Min extends BaseTest{
 		
 		// init for a new product
 		brand = dashboard.goToBrand();
-		brand.add("tmp", "Available");
+		brand.add("<h1>tmp</h1>", "Available");
 		
 		categories = dashboard.goToCategory();
-		categories.add("tmp", "Available");
-		
-		productPage = dashboard.goToProduct();
-		productPage.add("tmp", "1", "1", "tmp", "tmp", "Available");
-		
+		categories.add("tmpCat", "Not Available");
 		// 2. Go to setting page
 		// WebElement settingButton = driver.findElement(By.cssSelector("#topNavSetting > a:nth-child(1)")); ElementNotVisibleException
 		// settingButton.click();
@@ -57,8 +51,6 @@ public class XssProduct1Min extends BaseTest{
 		brand.remove();
 		dashboard.goToCategory();
 		categories.remove();
-		dashboard.goToProduct();
-		productPage.remove();
 	}
 	
 }
