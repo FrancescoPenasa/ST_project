@@ -15,6 +15,16 @@ public class DashboardPage extends PageObject{
 	@FindBy(id="navProduct")
 	WebElement productButton; 
 	
+	@FindBy(id="navOrder")
+	WebElement ordersButton; 
+	
+	@FindBy(id="topNavAddOrder")
+	WebElement addOrdersButton; 
+	
+	@FindBy(id="topNavManageOrder")
+	WebElement manageOrdersButton; 
+	
+	
 	public DashboardPage(WebDriver driver) {
 		super(driver);
 	}
@@ -35,6 +45,22 @@ public class DashboardPage extends PageObject{
 		this.productButton.click();
 		myWait();
 		return new ProductPage(driver);
+	}
+	
+	public AddOrdersPage goToAddOrders() {
+		this.ordersButton.click();
+		myWait();
+		this.addOrdersButton.click();
+		myWait();
+		return new AddOrdersPage(driver);
+	}
+	
+	public ManageOrdersPage goToManageOrders() {
+		this.ordersButton.click();
+		myWait(); 
+		this.manageOrdersButton.click();
+		myWait();
+		return new ManageOrdersPage(driver);
 	}
 	
 

@@ -14,6 +14,9 @@ public class CategoryPage extends PageObject{
 	@FindBy(id="categoriesName")
 	WebElement categoriesNameTextBox; 
 	
+	@FindBy(xpath="/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[3]/table[1]/tbody[1]/tr[1]/td[1]")
+	WebElement categoriesName;
+	
 	public CategoryPage(WebDriver driver) {
 		super(driver);
 	}
@@ -50,6 +53,10 @@ public class CategoryPage extends PageObject{
 		WebElement confirmRemoveButton = driver.findElement(By.id("removeCategoriesBtn"));
 		confirmRemoveButton.click();
 		myWait();
+	}
+	
+	public String getBrandName() {
+		return	categoriesName.getAttribute("innerHTML");
 	}
 	
 	
