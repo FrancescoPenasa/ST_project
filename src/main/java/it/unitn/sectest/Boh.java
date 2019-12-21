@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.After;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 import utils.BaseTest;
@@ -116,6 +117,12 @@ public class Boh extends BaseTest {
 		usernameTextBox.sendKeys("admin");
 		WebElement changeUsernameButton = driver.findElement(By.id("changeUsernameBtn"));
 		changeUsernameButton.click();
+	}
+	
+	private void bypassInputRestrictions(String id, String newValue) {
+		WebElement inputField = driver.findElement(By.id(id));
+		JavascriptExecutor js = (JavascriptExecutor) driver;  
+		js.executeScript("arguments[0].setAttribute('value', arguments[1])", inputField, newValue);
 	}
 	
 }

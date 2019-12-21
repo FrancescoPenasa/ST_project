@@ -16,7 +16,7 @@ import utils.LoginPage;
 import utils.ManageOrdersPage;
 import utils.ProductPage;
 
-public class XssFetchOrderPhp1Min extends BaseTest{
+public class XssFetchProductPhp1Min extends BaseTest{
 
 	DashboardPage dashboard;
 	BrandPage brandPage;
@@ -26,7 +26,7 @@ public class XssFetchOrderPhp1Min extends BaseTest{
 	ManageOrdersPage manageOrdersPage;
 	
 	@Test
-	public void testXssFetchOrderPhp1Min() {
+	public void testXssFetchProductPhp1Min() {
 
 		// 1. Login as admin
 		// 2. Change brandName inserting XSS attack
@@ -37,50 +37,51 @@ public class XssFetchOrderPhp1Min extends BaseTest{
 		dashboard = login.login("admin", "admin");
 		
 		// add brand
-		String brand = "tmp";
+		String brand = "<h1>brand</h1>";
 		brandPage = dashboard.goToBrand();
 		brandPage.add(brand, "Available");
 		
 		// add category
-		String category = "tmp";
+		String category = "<h1>category</h1>";
 		categoriesPage = dashboard.goToCategory();
 		categoriesPage.add(category, "Available");
 		
 		// add product
-		String productName = "PerfectProduct";
+		brand = "brand";
+		category = "category";
+		String productName = "<h1>productName</h1>";
 		String quantity = "1";
-		String rate = "1";
+		String rate = "<h1>rate</h1>";
 		String status = "Available";
 		productPage = dashboard.goToProduct();
 		productPage.add(productName, quantity, rate, brand, category, status);
 		
-		// add order
-		String paid = "0";
-		String discount = "0";
-		addOrdersPage = dashboard.goToAddOrders();
-		addOrdersPage.add("21/12/2012", "<h1>name</h1>", "<h1>contact</h1>", productName, discount, paid, "Cash", "No Payment", "In Gujarat");
-		
-		manageOrdersPage = dashboard.goToManageOrders();
 		
 		
-		// check order
-		String actualClientName = manageOrdersPage.getClientdName();
-		String actualClientContact = manageOrdersPage.getClientContact();
-
-		assertEquals("<h1>name</h1>", actualClientName);
-		assertEquals("<h1>contact</h1>", actualClientContact);
+		
+		// check product
+		String actualproductName = productPage.getProductName();
+		assertEquals("<h1>productName</h1>", actualproductName);
+		
+		String actualBrandName = productPage.getBrandName();
+		assertEquals("<h1>brand</h1>", actualBrandName);
+		
+		String actualCategoryName = productPage.geTCategoryName();
+		assertEquals("<h1>category</h1>", actualCategoryName);
+		
+		String actualRate = productPage.getRate();
+		assertEquals("<h1>rate</h1>", actualRate);
 	}
 	
 	@After
 	public void reset() {		
-		// We are still in the manageOrder
-		manageOrdersPage.remove();
+		// we are on product page
+		productPage.remove();
 		dashboard.goToBrand();
 		brandPage.remove();
 		dashboard.goToCategory();
 		categoriesPage.remove();
-		//dashboard.goToProduct();
-		//productPage.remove();
+		dashboard.goToProduct();
 	}
 	
 }

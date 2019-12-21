@@ -6,6 +6,7 @@ import java.net.URL;
 import java.nio.file.Paths;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -28,13 +29,15 @@ public class AddOrdersPage extends PageObject{
 	@FindBy(id="paid")
 	WebElement paidTextBox; 
 	
-	@FindBy(xpath="/html[1]/body[1]/div[1]/div[2]/div[2]/form[1]/table[1]/tbody[1]/tr[2]/td[6]/button[1]")
-	WebElement trashButton2;
-	@FindBy(xpath="/html[1]/body[1]/div[1]/div[2]/div[2]/form[1]/table[1]/tbody[1]/tr[3]/td[6]/button[1]")
-	WebElement trashButton3;
+	@FindBy(xpath="/html[1]/body[1]/div[1]/div[2]/div[2]/form[1]/table[1]/tbody[1]/tr[1]/td[1]/div[1]/select[1]")
+	WebElement addProduct1;
 	
 	@FindBy(id="createOrderBtn")
 	WebElement createOrderBtn;
+	
+	@FindBy(xpath="/html[1]/body[1]/div[1]/div[2]/div[2]/form[1]/table[1]/tbody[1]/tr[1]/td[6]/button[1]")
+	WebElement trashButton;
+
 		
 	public AddOrdersPage(WebDriver driver) {
 		super(driver);
@@ -52,22 +55,31 @@ public class AddOrdersPage extends PageObject{
 	 * @param paymentStatus Full Payment
 	 */
 	public void add(String orderDate, String clientName, String clientContact, String product, String discount, String paid, 
-			String paymentType, String paymentStatus) {
-
+			String paymentType, String paymentStatus, String paymentPlace) {
+		
+		
+//		WebElement inputField = driver.findElement(By.id("orderDate"));
+//		String newValue = "<h1>DATE</h1>";
+//		JavascriptExecutor js = (JavascriptExecutor) driver;  
+//		js.executeScript("arguments[0].setAttribute('value', arguments[1])", inputField, newValue);
+		
 		orderDateTextBox.sendKeys(orderDate);
-		clientContactTextBox.sendKeys(clientName);
+		clientNameTextBox.click();
+		clientNameTextBox.sendKeys(clientName);
 		clientContactTextBox.sendKeys(clientContact);
 		discountTextBox.sendKeys(discount);
 		paidTextBox.sendKeys(paid);
 		
 		// remove other products
-		trashButton2.click();
-		trashButton3.click();
+		trashButton.click();
+		trashButton.click();
+		myWait();
 		
-		// productname
-		Select productNameElm = new Select(driver.findElement(By.id("productName1")));
-		productNameElm.selectByVisibleText(product);
+		// productname		
+		Select productName = new Select(driver.findElement(By.cssSelector("#productName3")));
+		productName.selectByVisibleText(product);
 		
+
 		// paymentype
 		Select paymentTypeElm = new Select(driver.findElement(By.id("paymentType")));
 		if (paymentType.equals("Cheque")){
@@ -92,9 +104,20 @@ public class AddOrdersPage extends PageObject{
 			paymentStatusElm.selectByVisibleText("No Payment");
 		}
 		
+		// paymentPlace
+		Select paymentPlaceElm = new Select(driver.findElement(By.id("paymentPlace")));
+		if (paymentPlace.equals("In Gujarat")){
+			paymentPlaceElm.selectByVisibleText("In Gujarat");
+		}
+		else {
+			paymentPlaceElm.selectByVisibleText("Out Of Gujarat");
+		}
+		myWait();
+
 		// create
 		createOrderBtn.click();
 		myWait();
+
 	}
 	
 	

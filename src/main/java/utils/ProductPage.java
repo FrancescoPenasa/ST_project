@@ -6,6 +6,7 @@ import java.net.URL;
 import java.nio.file.Paths;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -13,11 +14,32 @@ import org.openqa.selenium.support.ui.Select;
 
 public class ProductPage extends PageObject{
 	
-	@FindBy(id="addProductModalBtn")
-	WebElement addProductButton; 	
-	
+	// textboxes
 	@FindBy(id="productName")
 	WebElement productNameTextBox; 
+	
+	// buttons
+	@FindBy(id="addProductModalBtn")
+	WebElement addProductButton; 	
+	@FindBy(xpath="/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[3]/table[1]/tbody[1]/tr[1]/td[8]/div[1]/button[1]")
+	WebElement actionBtn;
+	@FindBy(css="#removeProductModalBtn")
+	WebElement removeProductModalBtn;
+	@FindBy(id="removeProductBtn")
+	WebElement removeProductBtn;
+	
+	// labels
+	@FindBy(xpath="/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[3]/table[1]/tbody[1]/tr[1]/td[2]")
+	WebElement productNameLabel;
+	@FindBy(xpath="/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[3]/table[1]/tbody[1]/tr[1]/td[3]")
+	WebElement rateLabel;
+	@FindBy(xpath="/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[3]/table[1]/tbody[1]/tr[1]/td[5]")
+	WebElement brandNameLabel;
+	@FindBy(xpath="/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[3]/table[1]/tbody[1]/tr[1]/td[6]")
+	WebElement categoryNameLabel;
+	
+	
+	
 	
 	public ProductPage(WebDriver driver) {
 		super(driver);
@@ -57,7 +79,7 @@ public class ProductPage extends PageObject{
 		
 		Select elmCategory = new Select(driver.findElement(By.id("categoryName")));
 		elmCategory.selectByVisibleText(category);
-		
+
 		Select elmStatus = new Select(driver.findElement(By.id("productStatus")));
 		if (status.equals("Available")){
 			elmStatus.selectByVisibleText("Available");
@@ -72,8 +94,8 @@ public class ProductPage extends PageObject{
 		// close pop-up
 		WebElement closeButton = driver.findElement(By.xpath("/html[1]/body[1]/div[1]/div[2]/div[1]/div[1]/form[1]/div[3]/button[1]"));
 		closeButton.click();
-		myWait();
 	}
+	
 	
 	
 	private void myWait() {
@@ -83,10 +105,34 @@ public class ProductPage extends PageObject{
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
 
 	public void remove() {
-		// TODO Auto-generated method stub
-		
+		myWait();
+		actionBtn.click();
+		myWait();
+		removeProductModalBtn.click();
+		myWait();
+		removeProductBtn.click();
+		myWait();
+	}
+	
+	public String getProductName() {
+		return productNameLabel.getAttribute("innerHTML");
+	}
+	
+	public String getBrandName() {
+		return brandNameLabel.getAttribute("innerHTML");
+	}
+
+	public String geTCategoryName() {
+		return categoryNameLabel.getAttribute("innerHTML");
+	}
+
+	public String getRate() {
+		return rateLabel.getAttribute("innerHTML");
 	}
 
 }
