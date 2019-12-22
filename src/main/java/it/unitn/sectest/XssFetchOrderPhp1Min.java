@@ -57,9 +57,11 @@ public class XssFetchOrderPhp1Min extends BaseTest{
 		// add order
 		String paid = "0";
 		String discount = "0";
+		myWait();
 		addOrdersPage = dashboard.goToAddOrders();
+		myWait();
 		addOrdersPage.add("21/12/2012", "<h1>name</h1>", "<h1>contact</h1>", productName, discount, paid, "Cash", "No Payment", "In Gujarat");
-		
+		myWait();
 		manageOrdersPage = dashboard.goToManageOrders();
 		
 		
@@ -74,13 +76,21 @@ public class XssFetchOrderPhp1Min extends BaseTest{
 	@After
 	public void reset() {		
 		// We are still in the manageOrder
-		manageOrdersPage.remove();
-		dashboard.goToBrand();
-		brandPage.remove();
-		dashboard.goToCategory();
-		categoriesPage.remove();
+//		manageOrdersPage.remove();
+//		dashboard.goToBrand();
+//		brandPage.remove();
+//		dashboard.goToCategory();
+//		categoriesPage.remove();
 		//dashboard.goToProduct();
 		//productPage.remove();
+	}
+	
+	private void myWait() {
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

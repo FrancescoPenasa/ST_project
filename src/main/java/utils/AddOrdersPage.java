@@ -58,12 +58,12 @@ public class AddOrdersPage extends PageObject{
 			String paymentType, String paymentStatus, String paymentPlace) {
 		
 		
-//		WebElement inputField = driver.findElement(By.id("orderDate"));
-//		String newValue = "<h1>DATE</h1>";
-//		JavascriptExecutor js = (JavascriptExecutor) driver;  
-//		js.executeScript("arguments[0].setAttribute('value', arguments[1])", inputField, newValue);
+		WebElement inputField = driver.findElement(By.id("orderDate"));
+		String newValue = "<h1>DATE</h1>";
+		JavascriptExecutor js = (JavascriptExecutor) driver;  
+		js.executeScript("arguments[0].setAttribute('value', arguments[1])", inputField, newValue);
 		
-		orderDateTextBox.sendKeys(orderDate);
+		//orderDateTextBox.sendKeys(orderDate);
 		clientNameTextBox.click();
 		clientNameTextBox.sendKeys(clientName);
 		clientContactTextBox.sendKeys(clientContact);

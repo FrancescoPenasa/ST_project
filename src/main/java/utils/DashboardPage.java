@@ -24,6 +24,13 @@ public class DashboardPage extends PageObject{
 	@FindBy(id="topNavManageOrder")
 	WebElement manageOrdersButton; 
 	
+	@FindBy(id="navSetting")
+	WebElement settingsBtn; 
+	
+	@FindBy(xpath="/html[1]/body[1]/nav[1]/div[1]/div[2]/ul[1]/li[7]/ul[1]/li[1]/a[1]")
+	WebElement addUserBtn; 
+	
+	
 	
 	public DashboardPage(WebDriver driver) {
 		super(driver);
@@ -61,6 +68,14 @@ public class DashboardPage extends PageObject{
 		this.manageOrdersButton.click();
 		myWait();
 		return new ManageOrdersPage(driver);
+	}
+	
+	public AddUserPage goToAddUserPage() {
+		this.settingsBtn.click();
+		myWait(); 
+		this.addUserBtn.click();
+		myWait();
+		return new AddUserPage(driver);
 	}
 	
 

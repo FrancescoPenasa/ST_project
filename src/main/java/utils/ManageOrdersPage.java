@@ -20,13 +20,15 @@ public class ManageOrdersPage extends PageObject{
 	WebElement clientContact; 
 	
 	@FindBy(xpath="/html[1]/body[1]/div[1]/div[2]/div[2]/div[2]/table[1]/tbody[1]/tr[1]/td[7]/div[1]/button[1]")
-	WebElement actrionBtn;
+	WebElement actionBtn;
 	
 	@FindBy(id="removeOrderModalBtn")
 	WebElement removeOrderModalBtn;	
 	@FindBy(id="removeOrderBtn")
 	WebElement removeOrderBtn;
 	
+	@FindBy(xpath="/html[1]/body[1]/div[1]/div[2]/div[2]/div[2]/table[1]/tbody[1]/tr[1]/td[7]/div[1]/ul[1]/li[3]/a[1]")
+	WebElement printBtn;
 	
 	public ManageOrdersPage(WebDriver driver) {
 		super(driver);
@@ -42,7 +44,7 @@ public class ManageOrdersPage extends PageObject{
 	}
 
 	public void remove() {
-		actrionBtn.click();
+		actionBtn.click();
 		myWait();
 		removeOrderModalBtn.click();
 		myWait();
@@ -57,6 +59,15 @@ public class ManageOrdersPage extends PageObject{
 
 	public String getClientContact() {
 		return clientContact.getAttribute("innerHTML");
+	}
+
+
+	public void print() {
+		actionBtn.click();
+		myWait();
+		printBtn.click();
+		myWait();
+		
 	}
 
 }
